@@ -12,32 +12,20 @@
 void main() {
  
  // FIRST PART
-    char IP[16];
     char IPc[16];
 
     fgets(IPc, 16, stdin);
-    strcpy(IP, IPc);
+    struct in_addr ip; 
+    ip.s_addr = inet_addr(IPc);
 
-    char delim[] = ".";
+    printf("4-byte unsigned integer: %u \n", ip.s_addr);
 
-    unsigned char octet[4];
-    unsigned char *ptr = strtok(IP, delim);
+    char *IP;
+    IP = inet_ntoa(ip);
 
-    int i = 0;
+    printf("IP address: %s \n", IP);
 
-    while (ptr != NULL)
-    {
-        octet[i] = (unsigned char) atoi(ptr);
-        ptr = strtok(NULL, delim);
-        printf("%u\n", octet[i]);
-        i++;
-    }
 
-    
-    char IP2[16];
-    sprintf(IP2, "%d.%d.%d.%d", octet[0], octet[1], octet[2], octet[3]);
-
-    printf("%s\n", IP2);
 
 // SECOND PART
 
@@ -68,4 +56,9 @@ IPbuffer = inet_ntoa(*((struct in_addr*)
 
 printf("Hostname: %s\n", hostbuffer);
 printf("Host IP: %s\n", IPbuffer);
+
+
+
+
+
 }

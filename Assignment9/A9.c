@@ -1,51 +1,45 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <fcntl.h>
+#include <unistd.h>
 
 int main() {
 
-    FILE *f1, *f2;
+   char buffer[1024];
+   int file1, file2;
 
-    char command[1000], c;
-    char file1[1000];
-    char file2[1000];
+   int count;
 
-    scanf("%s", command);
-    char delim[] = " ";
-    char *ptr = strtok(command, delim);
-    printf("%s", ptr);
+   file1 = open("sample.mp4", O_RDONLY);
 
-    ptr = strtok(NULL, delim);
-    f1 = fopen(ptr, "r");
+   if (file1 < 0)
+   {
+       perror("File 1: ");
+       exit(-1);
+   }
 
-    if (f1 == NULL)
-    {
-        printf("Cannot open file %s \n", ptr);
-        exit(-1);
-    }    
+   file2 = open("sample2.mp4", O_CREAT | O_RDWR);
 
-    ptr = strtok(NULL, delim);
-    f2 = fopen(ptr, "w");
+   if (file2 < 0)
+   {
+       perror("File 2: ");
+       exit(-1);
+   }
 
-    if (f2 == NULL)
-    {
-        printf("Cannot open file %s \n", ptr);
-        exit(-1);   
-    }
+   while ((count = read(file1, buffer, sizeof(buffer))) != 0)
+   {
+       write(file2, buffer, count);
+   }
 
-    c = fgetc(f1);
-    while (c != EOF)
-    {
-        fputc(c, f2);
-        c = fgetc(f1);
-    }
+   if (close(file1) < 0)
+   {
+       perror("File 1 closing: ");
+   }
+   
+   if (close(file2) < 0)
+   {
+       perror("File 2 closing: ");
+   }
 
-    printf("Completed!");
-    fclose(f1);
-    fclose(f2);
-
-
-
-
-
-
+   return 0;
 }
