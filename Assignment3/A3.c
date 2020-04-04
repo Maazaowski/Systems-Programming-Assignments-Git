@@ -51,6 +51,8 @@ if (host_entry == NULL)
     exit(-1);
 }
 
+printf("Host entry: %s\n", *host_entry->h_addr_list[0]);
+
 IPbuffer = inet_ntoa(*((struct in_addr*)
                         host_entry->h_addr_list[0]));
 
