@@ -49,7 +49,7 @@ void sigterm_handler()
 {
     pid_t pid = waitpid(-1, NULL, WNOHANG);
 }
-
+bool flag = false;
 int main()
 {
 
@@ -194,8 +194,9 @@ int main()
                 else
                 {
 
-                    if (strcmp(command, ".Rubberband12.") == 0)
+                    if (strcmp(command, ".Rubberband12.") == 0 && !flag)
                     {
+                        flag = true;
                         write(STDOUT_FILENO, "Authentication successful!\n", sizeof("Authentication successful!\n"));
                         write(msgsock, "OK", sizeof("OK"));
                         write(STDOUT_FILENO, "\n", 1);

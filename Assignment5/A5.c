@@ -116,7 +116,7 @@ int main()
 
             if (fileStat.st_mode & S_IWGRP)
             {
-                dp->access[5] = 'x';
+                dp->access[5] = 'w';
             }
             else
             {
@@ -140,7 +140,7 @@ int main()
             }
             if (fileStat.st_mode & S_IWOTH)
             {
-                dp->access[8] = 'x';
+                dp->access[8] = 'w';
             }
             else
             {
@@ -227,7 +227,7 @@ int main()
 
             if (fileStat.st_mode & S_IWGRP)
             {
-                fp->access[5] = 'x';
+                fp->access[5] = 'w';
             }
             else
             {
@@ -251,7 +251,7 @@ int main()
             }
             if (fileStat.st_mode & S_IWOTH)
             {
-                fp->access[8] = 'x';
+                fp->access[8] = 'w';
             }
             else
             {
